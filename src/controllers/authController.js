@@ -1,6 +1,7 @@
-import authService from "../services/authService.js";
 import bcrypt from "bcrypt";
 import passport from "passport";
+
+import authService from "../services/authService.js";
 import folderController from "./folderController.js";
 
 async function signup(req, res) {
@@ -51,8 +52,4 @@ const logout = (req, res) => {
     res.status(200).json({success:true});
 }
 
-export default {
-    signup,
-    login,
-    logout
-};
+export default { signup, login, logout};

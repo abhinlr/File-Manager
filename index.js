@@ -8,7 +8,6 @@ import mongoDbSession from "connect-mongodb-session";
 
 import connectDB from "./src/config/db.js";
 import "./src/config/passport.js";
-
 import authRoute from "./src/routes/auth.js";
 import folderRoute from "./src/routes/folder.js";
 import fileRoute from "./src/routes/file.js";
@@ -24,7 +23,6 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
-app.set("trust proxy", 1);
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,

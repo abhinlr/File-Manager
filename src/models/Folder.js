@@ -33,20 +33,16 @@ const FolderSchema = new mongoose.Schema({
 
 FolderSchema.pre("findOneAndUpdate", async function (next) {
     try {
-        const newPath = this.getUpdate().path;  // Assuming newPath is root/updated/sub
-        const docId = this.getQuery()._id;  // Assuming _id is provided in the query
+        const newPath = this.getUpdate().path;
+        const docId = this.getQuery()._id;
 
-        // Fetch the original folder document from MongoDB
         const originalFolder = await Folder.findById(docId).lean();
-        const oldPath = originalFolder.path;  // Assuming originalFolder contains the current path
+        const oldPath = originalFolder.path;
 
-        // Escape any special characters in oldPath for regex matching
         const escapedOldPath = oldPath.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
 
-        // Construct the regular expression to match oldPath and capture the remainder
         const regex = new RegExp(`^${escapedOldPath}`);
 
-        // Perform the update operation using updateMany
         const result = await Folder.updateMany(
             { path: { $regex: regex } },
             [
