@@ -19,7 +19,7 @@ const sessionStore = new mongoDbSession(session)({
     uri: process.env.MONGO_URI,
     collection: "sessions"});
 
-app.use(cors());
+app.use(cors({origin:'*'}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
